@@ -1,11 +1,15 @@
 package com.example.newappli;
 
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class Control {
 
@@ -16,25 +20,32 @@ public class Control {
     private URL location;
 
     @FXML
-    private TextField button_field_log;
+    private TextField but_login;
 
     @FXML
-    private Button button_go;
+    private TextField but_pass;
 
     @FXML
-    private Button button_login;
+    private Button but_sign_in;
 
     @FXML
-    private TextField button_pass;
+    private Button but_sign_up;
 
     @FXML
     void initialize() {
-        assert button_field_log != null : "fx:id=\"button_field_log\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert button_go != null : "fx:id=\"button_go\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert button_login != null : "fx:id=\"button_login\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert button_pass != null : "fx:id=\"button_pass\" was not injected: check your FXML file 'hello-view.fxml'.";
-
+        but_sign_in.setOnAction(actionEvent -> {
+           but_sign_in.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/sign_up.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.showAndWait();
+        });
     }
 }
-
-
