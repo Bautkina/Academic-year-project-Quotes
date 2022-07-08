@@ -30,17 +30,25 @@ public class SignUpControl {
 
     @FXML
     void initialize() {
-        DataBase db = new DataBase();
+
         but_sign_in.setOnAction((actionEvent -> {
-            try {
-                Statement st = db.getConnection().createStatement();
-                //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
-                db.signUp(but_name.getText(),but_login.getText(),but_pass.getText());
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("ош1");
-            }
+            signUpNewUser();
         }));
+    }
+
+    private void signUpNewUser() {
+        DataBase db = new DataBase();
+
+
+        String name = but_name.getText();
+        String login = but_login.getText();
+        String password = but_pass.getText();
+
+            //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
+        User user = new User(name, login,password);
+        db.signUp(user);
+
+
     }
 
 }

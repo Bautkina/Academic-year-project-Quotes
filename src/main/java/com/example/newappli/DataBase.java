@@ -26,20 +26,19 @@ public class DataBase {
                 }
 
             }
-    public void signUp(String name, String login,String password) throws SQLException, ClassNotFoundException {
-        Statement st = connection.createStatement();
+    public void signUp(User user) {
 
         String insert = "INSERT INTO "+ Bd.table+"("+Bd.name + ","+Bd.login+  "," + Bd.password +")" + "VALUES(?,?,?)";
-        //st.execute(insert);
         try {
             PreparedStatement pr = getConnection().prepareStatement(insert);
-            pr.setString(1, name);
-            pr.setString(2, login);
-            pr.setString(3, password);
-            pr.executeUpdate();
+            pr.setString(1, user.getName());
+            pr.setString(2, user.getLogin());
+            pr.setString(3, user.getPassword());
             pr.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
 }
