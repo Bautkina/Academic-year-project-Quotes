@@ -39,6 +39,22 @@ public class DataBase {
             e.printStackTrace();
         }
     }
+    public ResultSet getUser(User user){
+        ResultSet result = null;
+
+        String s = "select * from Users where login =? AND password =?";
+
+        try{
+            PreparedStatement pr = getConnection().prepareStatement(s);
+            pr.setString(1, user.getLogin());
+            pr.setString(2, user.getPassword());
+
+            result = pr.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 
 
 }

@@ -8,6 +8,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: ffbcad;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.newappli.SignUpControl">
     <children>
+      <Button fx:id="but_back" layoutX="600.0" layoutY="14.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Back">
+         <font>
+            <Font name="Pristina" size="19.0" />
+         </font>
+      </Button>
         <AnchorPane layoutY="111.0" prefHeight="289.0" prefWidth="700.0" style="-fx-background-color: fadfd7;">
             <children>
                 <Button fx:id="but_sign_in" layoutX="315.0" layoutY="217.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: ffbcad;" text="Sign in">

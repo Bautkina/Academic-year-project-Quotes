@@ -2,6 +2,8 @@ package com.example.newappli;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,7 @@ public class Control {
 
             if(!log_text.equals("") && !password_text.equals("")){
                 login(log_text,password_text);
+                System.out.println("ВСё плохо");
             }
             else {
                 System.out.println("Заполните поле");
@@ -62,5 +65,28 @@ public class Control {
     }
 
     private void login(String log_text, String password_text) {
+        DataBase bd = new DataBase();
+        User user = new User();
+        user.setLogin(log_text);
+        user.setPassword(password_text);
+        ResultSet result = bd.getUser(user);
+
+        int counter = 0;
+        try {
+            while (result.next()) {
+                counter=+1;
+                System.out.println("t");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            System.out.println("Ошибка 2");
+        }
+
+        if(counter >= 1){
+            System.out.println("Успешно");
+        }
+        else{
+            System.out.println("bad");
+        }
     }
 }
