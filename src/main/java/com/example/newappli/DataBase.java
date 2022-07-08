@@ -2,6 +2,10 @@ package com.example.newappli;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import java.sql.*;
 
@@ -54,6 +58,22 @@ public class DataBase {
             throwables.printStackTrace();
         }
         return result;
+    }
+
+    public ObservableList<Quote> getDataBaseUsers(){
+        String select = "SELECT * FROM Comment_z";
+        ObservableList<Quote> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(select);
+            ResultSet result = pr.executeQuery();
+            while (result.next()){
+                list.add(new Quote(Integer.parseInt(result.getString("id")), result.getString("user_comment"),result.getString("comment"), result.getString("subject"), result.getString("teacher")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 

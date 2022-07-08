@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: ffbcad;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.newappli.TableControl">
+    <children>
+        <AnchorPane layoutY="111.0" prefHeight="289.0" prefWidth="700.0" style="-fx-background-color: fadfd7;">
+         <children>
+            <TableView fx:id="table" layoutX="8.0" layoutY="14.0" prefHeight="265.0" prefWidth="540.0" style="-fx-background-color: ffbcad;">
+              <columns>
+                  <TableColumn fx:id="col_id" prefWidth="38.0" text="id" />
+                <TableColumn fx:id="col_user" prefWidth="112.0" text="User" />
+                <TableColumn fx:id="col_quote" prefWidth="176.0" text="Quote" />
+                  <TableColumn fx:id="col_teacher" prefWidth="99.0" text="Teacher" />
+                  <TableColumn fx:id="col_subject" prefWidth="113.0" text="Subject" />
+              </columns>
+               <effect>
+                  <Glow />
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TableView>
+            <Button fx:id="but_update" layoutX="584.0" layoutY="207.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: ffbcad;" text="Update">
+               <font>
+                  <Font name="Pristina" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="but_delete" layoutX="584.0" layoutY="137.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: ffbcad;" text="Delete">
+               <font>
+                  <Font name="Pristina" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="but_create" layoutX="584.0" layoutY="71.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: ffbcad;" text="Create">
+               <font>
+                  <Font name="Pristina" size="19.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+        <Label layoutX="270.0" layoutY="14.0" text="Quotes">
+            <font>
+                <Font name="Pristina" size="75.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

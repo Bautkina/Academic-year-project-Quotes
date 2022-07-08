@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 public class Control {
 
+    private int reg = 0;
+
     @FXML
     private ResourceBundle resources;
 
@@ -34,6 +36,9 @@ public class Control {
     private Button but_sign_up;
 
     @FXML
+    private Button but_read;
+
+    @FXML
     void initialize() {
         but_sign_in.setOnAction(actionEvent -> {
             String log_text = but_login.getText().trim();
@@ -41,16 +46,46 @@ public class Control {
 
             if(!log_text.equals("") && !password_text.equals("")){
                 login(log_text,password_text);
-                System.out.println("ВСё плохо");
-            }
+                if (reg == 1){
+                        but_sign_in.getScene().getWindow().hide();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
+                        try {
+                            loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            System.out.println("Ошибка");
+                        }
+                        Parent p = loader.getRoot();
+                        Stage s = new Stage();
+                        s.setScene(new Scene(p));
+                        s.showAndWait();
+                    };
+                }
             else {
-                System.out.println("Заполните поле");
+                System.out.println("Заполните поля");
             }
         });
         but_sign_up.setOnAction(actionEvent -> {
            but_sign_up.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/com/example/newappli/sign_up.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка");
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.showAndWait();
+        });
+
+        but_read.setOnAction(actionEvent -> {
+            but_read.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
@@ -84,9 +119,11 @@ public class Control {
 
         if(counter >= 1){
             System.out.println("Успешно");
+            reg = 1;
         }
         else{
-            System.out.println("bad");
+            System.out.println("Такого пользователя нет");
+            reg = 0;
         }
     }
 }

@@ -29,7 +29,12 @@
             <Font name="Pristina" size="75.0" />
          </font>
       </Label>
-      <Button fx:id="but_sign_up" layoutX="594.0" layoutY="14.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Sign up">
+      <Button fx:id="but_sign_up" layoutX="594.0" layoutY="14.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Sign up">
+         <font>
+            <Font name="Pristina" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="but_read" layoutX="497.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Read">
          <font>
             <Font name="Pristina" size="19.0" />
          </font>

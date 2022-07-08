@@ -42,7 +42,6 @@ public class SignUpControl {
         but_sign_in.setOnAction((actionEvent -> {
             signUpNewUser();
         }));
-
         but_back.setOnAction((actionEvent -> {
             but_back.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
@@ -58,6 +57,7 @@ public class SignUpControl {
             s.setScene(new Scene(p));
             s.showAndWait();
         }));
+
     }
 
     private void signUpNewUser() {

@@ -1,7 +1,7 @@
 package com.example.newappli;
 
 public class User {
-    private String id;
+    private int id;
     private  String name;
     private String login;
     private  String password;
@@ -12,11 +12,15 @@ public class User {
         this.login = login;
         this.password = password;
     }
-    public User(String id, String name, String login, String password) {
+    public User(int id, String name, String login, String password) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
+    }
+
+    public User(int id, String name, String comment, String teacher, String subject) {
+
     }
 
     public User() {
@@ -40,11 +44,11 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
