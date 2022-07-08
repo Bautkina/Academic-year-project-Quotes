@@ -34,18 +34,33 @@ public class Control {
     @FXML
     void initialize() {
         but_sign_in.setOnAction(actionEvent -> {
-           but_sign_in.getScene().getWindow().hide();
+            String log_text = but_login.getText().trim();
+            String password_text = but_pass.getText().trim();
+
+            if(!log_text.equals("") && !password_text.equals("")){
+                login(log_text,password_text);
+            }
+            else {
+                System.out.println("Заполните поле");
+            }
+        });
+        but_sign_up.setOnAction(actionEvent -> {
+           but_sign_up.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/com/example/newappli/sign_up.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Ошибка");
             }
             Parent p = loader.getRoot();
             Stage s = new Stage();
             s.setScene(new Scene(p));
             s.showAndWait();
         });
+    }
+
+    private void login(String log_text, String password_text) {
     }
 }
