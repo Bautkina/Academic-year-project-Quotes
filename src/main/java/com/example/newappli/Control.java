@@ -72,7 +72,12 @@ public class Control {
                 }
                 }
             else {
-                System.out.println("Заполните поля");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Заполните поля!");
+
+                alert.showAndWait();
             }
         });
         but_sign_up.setOnAction(actionEvent -> {

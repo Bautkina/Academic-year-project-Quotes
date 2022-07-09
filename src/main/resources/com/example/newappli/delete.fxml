@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: ffbcad;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.newappli.DeleteControl">
+    <children>
+        <AnchorPane layoutY="111.0" prefHeight="289.0" prefWidth="700.0" style="-fx-background-color: fadfd7;">
+            <children>
+                <TextField fx:id="but_deletefield" layoutX="313.0" layoutY="54.0" prefHeight="52.0" prefWidth="76.0" promptText="ID_цитаты">
+                    <effect>
+                        <Glow />
+                    </effect>
+                </TextField>
+                <Button fx:id="but_delete" layoutX="283.0" layoutY="123.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="135.0" style="-fx-background-color: ffbcad;" text="DELETE">
+                    <font>
+                        <Font name="Pristina" size="19.0" />
+                    </font>
+                </Button>
+            </children></AnchorPane>
+        <Label layoutX="163.0" layoutY="28.0" text="DELETE A QUOTE!">
+            <font>
+                <Font name="Pristina" size="47.0" />
+            </font>
+        </Label>
+        <Button fx:id="but_back" layoutX="593.0" layoutY="14.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Back">
+            <font>
+                <Font name="Pristina" size="19.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

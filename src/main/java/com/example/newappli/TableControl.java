@@ -60,6 +60,9 @@ public class TableControl extends Control{
     @FXML
     private TableColumn<Quote, String> col_date;
 
+    @FXML
+    private TableColumn<Quote, String> col_author;
+
 
     ObservableList<Quote> list;
     int index = -1;
@@ -71,7 +74,7 @@ public class TableControl extends Control{
     @FXML
     void initialize() {
         col_id.setCellValueFactory(new PropertyValueFactory<Quote, Integer>("id"));
-        //col_user.setCellValueFactory(new PropertyValueFactory<Quote, String>("user"));
+        col_author.setCellValueFactory(new PropertyValueFactory<Quote, String>("user"));
         col_teacher.setCellValueFactory(new PropertyValueFactory<Quote, String>("teacher"));
         col_subject.setCellValueFactory(new PropertyValueFactory<Quote, String>("subject"));
         col_quote.setCellValueFactory(new PropertyValueFactory<Quote, String>("comment"));
@@ -107,6 +110,34 @@ public class TableControl extends Control{
                 alert.showAndWait();
             }
         });
+
+        but_update.setOnAction(actionEvent -> {
+            if (reg == 1) {
+                but_create.getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/com/example/newappli/update.fxml"));
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Ошибка");
+                }
+                Parent p = loader.getRoot();
+                Stage s = new Stage();
+                s.setScene(new Scene(p));
+                s.show();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Незарегистрированный пользователь не может изменять цитаты!");
+
+                alert.showAndWait();
+            }
+        });
+
         but_back.setOnAction((actionEvent -> {
             but_back.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();

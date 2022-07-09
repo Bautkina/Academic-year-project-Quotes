@@ -17,9 +17,10 @@
               <columns>
                   <TableColumn fx:id="col_id" prefWidth="38.0" text="id" />
                   <TableColumn fx:id="col_date" prefWidth="108.0" text="Date" />
-                <TableColumn fx:id="col_quote" prefWidth="201.0" text="Quote" />
-                  <TableColumn fx:id="col_teacher" prefWidth="87.0" text="Teacher" />
-                  <TableColumn fx:id="col_subject" prefWidth="104.0" text="Subject" />
+                <TableColumn fx:id="col_quote" prefWidth="113.0" text="Quote" />
+                  <TableColumn fx:id="col_teacher" prefWidth="112.0" text="Teacher" />
+                  <TableColumn fx:id="col_subject" prefWidth="81.0" text="Subject" />
+                  <TableColumn fx:id="col_author" prefWidth="87.0" text="Author" />
               </columns>
                <effect>
                   <Glow />
