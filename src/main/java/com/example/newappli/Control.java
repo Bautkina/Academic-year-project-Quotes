@@ -9,13 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Control {
-
-    private int reg = 0;
+    public static int reg;
 
     @FXML
     private ResourceBundle resources;
@@ -59,8 +59,17 @@ public class Control {
                         Parent p = loader.getRoot();
                         Stage s = new Stage();
                         s.setScene(new Scene(p));
-                        s.showAndWait();
-                    };
+                        s.show();
+                    }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                    alert.setTitle("Ошибка");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Такого пользователя нет!");
+
+                    alert.showAndWait();
+                }
                 }
             else {
                 System.out.println("Заполните поля");
@@ -95,13 +104,15 @@ public class Control {
             Parent p = loader.getRoot();
             Stage s = new Stage();
             s.setScene(new Scene(p));
-            s.showAndWait();
+            s.show();
         });
     }
 
     private void login(String log_text, String password_text) {
         DataBase bd = new DataBase();
         User user = new User();
+
+
         user.setLogin(log_text);
         user.setPassword(password_text);
         ResultSet result = bd.getUser(user);
@@ -110,7 +121,6 @@ public class Control {
         try {
             while (result.next()) {
                 counter=+1;
-                System.out.println("t");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

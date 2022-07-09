@@ -16,10 +16,10 @@
             <TableView fx:id="table" layoutX="8.0" layoutY="14.0" prefHeight="265.0" prefWidth="540.0" style="-fx-background-color: ffbcad;">
               <columns>
                   <TableColumn fx:id="col_id" prefWidth="38.0" text="id" />
-                <TableColumn fx:id="col_user" prefWidth="112.0" text="User" />
-                <TableColumn fx:id="col_quote" prefWidth="176.0" text="Quote" />
-                  <TableColumn fx:id="col_teacher" prefWidth="99.0" text="Teacher" />
-                  <TableColumn fx:id="col_subject" prefWidth="113.0" text="Subject" />
+                  <TableColumn fx:id="col_date" prefWidth="108.0" text="Date" />
+                <TableColumn fx:id="col_quote" prefWidth="201.0" text="Quote" />
+                  <TableColumn fx:id="col_teacher" prefWidth="87.0" text="Teacher" />
+                  <TableColumn fx:id="col_subject" prefWidth="104.0" text="Subject" />
               </columns>
                <effect>
                   <Glow />
@@ -49,5 +49,10 @@
                 <Font name="Pristina" size="75.0" />
             </font>
         </Label>
+      <Button fx:id="but_back" layoutX="583.0" layoutY="14.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: fadfd7;" text="Back">
+         <font>
+            <Font name="Pristina" size="19.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

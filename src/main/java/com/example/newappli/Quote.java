@@ -16,7 +16,16 @@ public class Quote {
         this.user = user;
     }
 
-    public Quote(int id, String user, String quote, String subject, String teacher) {
+    public Quote(int id, String user, String quote, String subject, String teacher, String date) {
+        this.id = id;
+        this.quote = quote;
+        this.date = date;
+        this.subject = subject;
+        this.teacher = teacher;
+        this.user = user;
+    }
+
+    public Quote(String subject, String teacher, String quote) {
         this.id = id;
         this.quote = quote;
         this.date = date;

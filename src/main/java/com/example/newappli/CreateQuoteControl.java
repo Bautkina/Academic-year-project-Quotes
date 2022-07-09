@@ -2,8 +2,6 @@ package com.example.newappli;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,39 +11,42 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class SignUpControl {
+public class CreateQuoteControl extends Control{
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
-    private Button but_back;
-
-    @FXML
     private URL location;
 
     @FXML
-    private TextField but_login;
+    private Button but_back;
+
+
 
     @FXML
-    private TextField but_name;
+    private Button but_create;
 
     @FXML
-    private TextField but_pass;
+    private TextField but_quote;
 
     @FXML
-    private Button but_sign_in;
+    private TextField but_subject;
+
+    @FXML
+    private TextField but_teacher;
+
 
     @FXML
     void initialize() {
+        but_create.setOnAction(actionEvent -> {
+            newQuote();
+        });
 
-        but_sign_in.setOnAction((actionEvent -> {
-            signUpNewUser();
-        }));
         but_back.setOnAction((actionEvent -> {
             but_back.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/newappli/hello-view.fxml"));
+            loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
@@ -57,22 +58,21 @@ public class SignUpControl {
             s.setScene(new Scene(p));
             s.show();
         }));
-
     }
-
-    private void signUpNewUser() {
+    private void newQuote() {
         DataBase db = new DataBase();
 
-        String name = but_name.getText();
-        String login = but_login.getText();
-        String password = but_pass.getText();
+        String teacher = but_teacher.getText();
+        String subject = but_subject.getText();
+        String quote = but_quote.getText();
 
-            //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
-        User user = new User(name, login,password);
-        db.signUp(user);
+        //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
+        Quote quote1 = new Quote(teacher, subject,quote);
+        db.createQ(quote1);
 
 
 
     }
+
 
 }

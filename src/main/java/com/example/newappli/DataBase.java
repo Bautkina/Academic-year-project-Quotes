@@ -1,16 +1,16 @@
 package com.example.newappli;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+
 import java.sql.*;
 
 public class DataBase {
     public Connection connection;
+    public static int user_id;
+    public static int date_cur;
 
     public Connection getConnection() {
         try {
@@ -45,15 +45,27 @@ public class DataBase {
     }
     public ResultSet getUser(User user){
         ResultSet result = null;
+        ResultSet result2 = null;
 
         String s = "select * from Users where login =? AND password =?";
+        //String s2 = "select * from Users where login =? AND password =?";
 
         try{
             PreparedStatement pr = getConnection().prepareStatement(s);
             pr.setString(1, user.getLogin());
             pr.setString(2, user.getPassword());
-
+            PreparedStatement pr2 = getConnection().prepareStatement(s);
+            pr2.setString(1, user.getLogin());
+            pr2.setString(2, user.getPassword());
             result = pr.executeQuery();
+            result2 = pr2.executeQuery();
+
+            while (result2.next()) {
+                user_id = result2.getInt("id");
+                //date_cur = result2.getInt("date");
+                System.out.println(user_id);
+                //System.out.println(date_cur);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -61,19 +73,36 @@ public class DataBase {
     }
 
     public ObservableList<Quote> getDataBaseUsers(){
-        String select = "SELECT * FROM Comment_z";
+        String select = "SELECT * FROM Quote";
         ObservableList<Quote> list = FXCollections.observableArrayList();
         try {
             PreparedStatement pr = getConnection().prepareStatement(select);
             ResultSet result = pr.executeQuery();
             while (result.next()){
-                list.add(new Quote(Integer.parseInt(result.getString("id")), result.getString("user_comment"),result.getString("comment"), result.getString("subject"), result.getString("teacher")));
+                list.add(new Quote(Integer.parseInt(result.getString("id")), result.getString("user_comment"),result.getString("comment"), result.getString("subject"), result.getString("teacher"),  result.getString("date")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return list;
+    }
+
+
+
+    public void createQ(Quote quote1) {
+        String insert = "INSERT INTO Quote(comment, user_comment, teacher, subject, date) values(?,'"+user_id+"',?,?, CURRENT_TIMESTAMP)";
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(insert);
+            pr.setString(1, quote1.getComment());
+            //pr.setString(2, user_id);
+            pr.setString(2, quote1.getTeacher());
+            pr.setString(3, quote1.getSubject());
+
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

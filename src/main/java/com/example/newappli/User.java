@@ -1,7 +1,7 @@
 package com.example.newappli;
 
 public class User {
-    private int id;
+    private static int id;
     private  String name;
     private String login;
     private  String password;
