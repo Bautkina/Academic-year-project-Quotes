@@ -81,7 +81,8 @@ public class TableControl extends Control{
         col_subject.setCellValueFactory(new PropertyValueFactory<Quote, String>("subject"));
         col_quote.setCellValueFactory(new PropertyValueFactory<Quote, String>("comment"));
         DataBase bd = new DataBase();
-        col_user = bd.countUser();
+        //col_user = bd.countUser_1();
+        col_user = bd.countUser_2();
         col_date.setCellValueFactory(new PropertyValueFactory<Quote, String>("date"));
         if (reg == 1){
             count.setText(col_user);
@@ -118,11 +119,6 @@ public class TableControl extends Control{
             else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 DataBase db = new DataBase();
-                try {
-                    String count = db.countUser();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
 
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);

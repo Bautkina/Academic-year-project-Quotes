@@ -39,7 +39,6 @@ public class DeleteControl {
                 loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Ошибка");
             }
             Parent p = loader.getRoot();
             Stage s = new Stage();
@@ -68,11 +67,9 @@ public class DeleteControl {
         DataBase db = new DataBase();
 
         int id = Integer.parseInt(but_deletefield.getText());
-        System.out.println("fff");
 
         Quote quote1 = new Quote(id);
         db.delete(quote1);
-        System.out.println("ggg");
     }
 
 }

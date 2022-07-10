@@ -122,11 +122,10 @@ public class DataBase {
         return result;
     }
 
-    public String countUser() throws SQLException {
+    public String countUser_1() throws SQLException {
         String insert = "Select COUNT(user_comment) as count FROM Quote WHERE  user_comment = " +user_id+ "";
         Connection connection = getConnection();
         Statement st = connection.createStatement();
-        PreparedStatement pr = getConnection().prepareStatement(insert);
         int count = 0;
         ResultSet result  = st.executeQuery(insert);
         while (result.next()){
@@ -134,7 +133,18 @@ public class DataBase {
             System.out.println(count);
         }
         return String.valueOf(count);
+    }
 
+    public String countUser_2() throws SQLException {
+        String query = "SELECT * FROM Quote WHERE user_comment ='" + user_id + "'";
+        PreparedStatement st = getConnection().prepareStatement(query);
+        int count = 0;
+        ResultSet res = st.executeQuery(query);
+
+        while (res.next()) {
+            count += 1;
+        }
+        return String.valueOf(count);
     }
 
     public void update(Quote quote){
