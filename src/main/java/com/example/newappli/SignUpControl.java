@@ -2,6 +2,8 @@ package com.example.newappli;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
@@ -14,7 +16,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
 public class SignUpControl {
+
 
     @FXML
     private ResourceBundle resources;
@@ -68,7 +77,8 @@ public class SignUpControl {
         String login = but_login.getText();
         String password = but_pass.getText();
 
-            //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
+
+        //st.execute("INSERT INTO Users (name ,login,password) VALUES ('aaa','vscv33c','acvvcvcv')");
         User user = new User(name, login,password);
         db.signUp(user);
 

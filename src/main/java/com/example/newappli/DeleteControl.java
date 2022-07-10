@@ -32,6 +32,19 @@ public class DeleteControl {
     void initialize() {
         but_delete.setOnAction(actionEvent -> {
             newDelete();
+            but_delete.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка");
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.show();
         });
 
         but_back.setOnAction((actionEvent -> {
@@ -55,9 +68,11 @@ public class DeleteControl {
         DataBase db = new DataBase();
 
         int id = Integer.parseInt(but_deletefield.getText());
+        System.out.println("fff");
 
         Quote quote1 = new Quote(id);
-        db.createQ(quote1);
+        db.delete(quote1);
+        System.out.println("ggg");
     }
 
 }

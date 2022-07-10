@@ -41,6 +41,19 @@ public class CreateQuoteControl extends Control{
     void initialize() {
         but_create.setOnAction(actionEvent -> {
             newQuote();
+            but_create.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка");
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.show();
         });
 
         but_back.setOnAction((actionEvent -> {

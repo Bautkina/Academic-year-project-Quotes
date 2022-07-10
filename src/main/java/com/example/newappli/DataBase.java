@@ -1,4 +1,6 @@
 package com.example.newappli;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -6,6 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.sql.*;
 
 public class DataBase {
@@ -33,33 +40,56 @@ public class DataBase {
             }
     public void signUp(User user) {
 
-        String insert = "INSERT INTO "+ Bd.table+"("+Bd.name + ","+Bd.login+  "," + Bd.password +")" + "VALUES(?,?,?)";
         try {
-            if(!user.getName().equals("") && !user.getLogin().equals("")&& !user.getPassword().equals("")) {
-                PreparedStatement pr = getConnection().prepareStatement(insert);
-                pr.setString(1, user.getName());
-                pr.setString(2, user.getLogin());
-                pr.setString(3, user.getPassword());
-                pr.executeUpdate();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-                alert.setTitle("Предупреждение");
-                alert.setHeaderText(null);
-                alert.setContentText("Вы зарегистрировались! Войдите в систему снова, чтобы продолжить.");
-
-                alert.showAndWait();
+            Cipher cipher = Cipher.getInstance("AES");
+            SecretKeySpec key = new SecretKeySpec("Aaaaaaaaaaaaaaaa".getBytes(), "AES");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] bytes = cipher.doFinal(user.getPassword().getBytes());
+            String hash_password = new String();
+            for (byte b : bytes) {
+                hash_password += b;
+                System.out.print(b);
             }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            System.out.print(hash_password);
 
-                alert.setTitle("Предупреждение");
-                alert.setHeaderText(null);
-                alert.setContentText("Заполните все поля!");
 
-                alert.showAndWait();
+            String insert = "INSERT INTO " + Bd.table + "(" + Bd.name + "," + Bd.login + "," + Bd.password + ")" + "VALUES(?,?,?)";
+            try {
+                if (!user.getName().equals("") && !user.getLogin().equals("") && !user.getPassword().equals("")) {
+                    PreparedStatement pr = getConnection().prepareStatement(insert);
+                    pr.setString(1, user.getName());
+                    pr.setString(2, user.getLogin());
+                    pr.setString(3, hash_password);
+                    pr.executeUpdate();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                    alert.setTitle("Предупреждение");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Вы зарегистрировались! Войдите в систему снова, чтобы продолжить.");
+
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                    alert.setTitle("Предупреждение");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Заполните все поля!");
+
+                    alert.showAndWait();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-        } catch (SQLException e) {
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
     }
@@ -93,16 +123,16 @@ public class DataBase {
     }
 
     public void update(Quote quote){
-        String insert = "UPDATE Quote SET subject = ?, teacher = ?, quote = ? WHERE id = ? user_comment = '" +user_id+ "'";
+        String insert = "UPDATE Quote SET subject = ?, teacher = ?, comment = ? WHERE id = ? AND user_comment = '" +user_id+ "'";
         try {
-            if ((quote.getUser().equals("user_id"))){
-                String q = String.valueOf(quote.getId());
-            if(!q.equals("") && !quote.getComment().equals("")&& !quote.getTeacher().equals("")&& !quote.getSubject().equals("")) {
+            //if ((quote.getUser().equals(user_id))){
+
+            if(!quote.getComment().equals("") && !quote.getTeacher().equals("") && !quote.getSubject().equals("")) {
                 PreparedStatement pr = getConnection().prepareStatement(insert);
                 pr.setString(1, quote.getSubject());
                 pr.setString(2, quote.getTeacher());
                 pr.setString(3, quote.getComment());
-                pr.setString(4, q);
+                pr.setInt(4, quote.getId());
                 pr.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
@@ -121,16 +151,7 @@ public class DataBase {
 
                 alert.showAndWait();
             }
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-                alert.setTitle("Предупреждение");
-                alert.setHeaderText(null);
-                alert.setContentText("Заполните все поля!");
-
-                alert.showAndWait();
-            }
+//            q
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -185,39 +206,19 @@ public class DataBase {
     public void delete(Quote quote){
         String delete = "DELETE FROM `Quote` WHERE id = ? AND user_comment = '" +user_id+ "'";
         try {
-            if ((quote.getUser().equals("user_id"))){
-                String q = String.valueOf(quote.getId());
-                if(!q.equals("") && !quote.getComment().equals("")&& !quote.getTeacher().equals("")&& !quote.getSubject().equals("")) {
-                    PreparedStatement pr = getConnection().prepareStatement(delete);
-                    pr.setString(1, quote.getUser());
-                    pr.executeUpdate();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                PreparedStatement pr = getConnection().prepareStatement(delete);
+            System.out.println("qwe");
 
-                    alert.setTitle("Предупреждение");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Вы изменили запись!");
-
-                    alert.showAndWait();
-                }
-                else{
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-                    alert.setTitle("Предупреждение");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Недостаточно прав!");
-
-                    alert.showAndWait();
-                }
-            }
-            else{
+                pr.setInt(1, quote.getId());
+            System.out.println("qwe4ert");
+                pr.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
-                alert.setContentText("Заполните все поля!");
+                alert.setContentText("Вы изменили запись!");
 
                 alert.showAndWait();
-            }
 
         } catch (SQLException e) {
             e.printStackTrace();

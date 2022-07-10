@@ -138,6 +138,33 @@ public class TableControl extends Control{
             }
         });
 
+        but_delete.setOnAction(actionEvent -> {
+            if (reg == 1) {
+                but_delete.getScene().getWindow().hide();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/com/example/newappli/delete.fxml"));
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Ошибка");
+                }
+                Parent p = loader.getRoot();
+                Stage s = new Stage();
+                s.setScene(new Scene(p));
+                s.show();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Незарегистрированный пользователь не может удалять цитаты!");
+
+                alert.showAndWait();
+            }
+        });
+
         but_back.setOnAction((actionEvent -> {
             but_back.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();

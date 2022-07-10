@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class UpdateControl {
+public class UpdateControl extends TableControl{
 
     @FXML
     private ResourceBundle resources;
@@ -41,6 +41,19 @@ public class UpdateControl {
     void initialize() {
         but_update.setOnAction(actionEvent -> {
             newUpdate();
+            but_update.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/table.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка");
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.show();
         });
 
         but_back.setOnAction((actionEvent -> {
@@ -64,12 +77,15 @@ public class UpdateControl {
         DataBase db = new DataBase();
 
         int id = Integer.parseInt(id_quote.getText());
+
         String teacher = but_teacher.getText();
         String subject = but_subject.getText();
         String quote = but_quote.getText();
 
         Quote quote1 = new Quote(id,teacher, subject,quote);
+        System.out.println("rr");
         db.update(quote1);
+        //System.out.println("rr");
     }
 
 

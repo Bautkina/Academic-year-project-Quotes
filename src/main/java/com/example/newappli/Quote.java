@@ -8,7 +8,12 @@ public class Quote {
     private String subject;
     private String teacher;
 
-    public Quote(int id, String teacher, String subject, String quote) {
+
+    public Quote(int id) {
+        this.id = id;
+    }
+
+    public Quote(String teacher, String subject, String quote) {
         this.id = id;
         this.quote = quote;
         this.date = date;
@@ -17,9 +22,6 @@ public class Quote {
         this.user = user;
     }
 
-    public Quote(int id) {
-        this.id = id;
-    }
 
     public String getUser() {
         return user;
@@ -46,7 +48,7 @@ public class Quote {
         this.user = user;
     }
 
-    public Quote(String subject, String teacher, String quote) {
+    public Quote(int id, String subject, String teacher, String quote) {
         this.id = id;
         this.quote = quote;
         this.date = date;
