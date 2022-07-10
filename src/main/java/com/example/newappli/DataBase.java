@@ -18,7 +18,6 @@ import java.sql.*;
 public class DataBase {
     public Connection connection;
     public static int user_id;
-    public static int date_cur;
 
     public Connection getConnection() {
         try {
@@ -207,10 +206,7 @@ public class DataBase {
         String delete = "DELETE FROM `Quote` WHERE id = ? AND user_comment = '" +user_id+ "'";
         try {
                 PreparedStatement pr = getConnection().prepareStatement(delete);
-            System.out.println("qwe");
-
                 pr.setInt(1, quote.getId());
-            System.out.println("qwe4ert");
                 pr.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
@@ -226,4 +222,62 @@ public class DataBase {
     }
 
 
+    public void updateD(User user_new, String login_old, String password_old) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+            SecretKeySpec key = new SecretKeySpec("Aaaaaaaaaaaaaaaa".getBytes(), "AES");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] bytes_new = cipher.doFinal(user_new.getPassword().getBytes());
+            byte[] bytes_old = cipher.doFinal(password_old.getBytes());
+            String hash_password_new = new String();
+            for (byte b : bytes_new) {
+                hash_password_new += b;
+            }
+            String hash_password_old = new String();
+            for (byte b : bytes_old) {
+                hash_password_old += b;
+            }
+        String insert = "UPDATE Users SET name = ?, login = ?, password = ? WHERE login = ? AND password = ? ";
+        try {
+            //if ((quote.getUser().equals(user_id))){
+
+            if (!user_new.getLogin().equals("") && !user_new.getPassword().equals("") && !login_old.equals("") && !password_old.equals("") && !user_new.getName().equals("")) {
+                PreparedStatement pr = getConnection().prepareStatement(insert);
+                pr.setString(1, user_new.getName());
+                pr.setString(2, user_new.getLogin());
+                pr.setString(3, hash_password_new);
+                pr.setString(4, login_old);
+                pr.setString(5, hash_password_old);
+                pr.executeUpdate();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Вы изменили регистрационные данные!");
+
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Недостаточно прав!");
+
+                alert.showAndWait();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -47,6 +47,9 @@ public class Control {
     private Button but_read;
 
     @FXML
+    private Button but_update_data;
+
+    @FXML
     void initialize() {
         but_sign_in.setOnAction(actionEvent -> {
             try {
@@ -113,6 +116,22 @@ public class Control {
                 e.printStackTrace();
             }
         });;
+        but_update_data.setOnAction(actionEvent -> {
+            but_update_data.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/newappli/update_data.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка");
+            }
+            Parent p = loader.getRoot();
+            Stage s = new Stage();
+            s.setScene(new Scene(p));
+            s.showAndWait();
+        });
+
         but_sign_up.setOnAction(actionEvent -> {
            but_sign_up.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
@@ -146,7 +165,8 @@ public class Control {
         });
     }
 
-    private void login(String log_text, String password_text) {
+
+    public void login(String log_text, String password_text) {
         DataBase bd = new DataBase();
         User user = new User();
 
