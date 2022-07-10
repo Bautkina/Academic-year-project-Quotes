@@ -50,7 +50,7 @@ public class Control {
     private Button but_update_data;
 
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
         but_sign_in.setOnAction(actionEvent -> {
             try {
             String log_text = but_login.getText().trim();

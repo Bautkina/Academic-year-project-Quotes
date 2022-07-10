@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -12,14 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class TableControl extends Control{
+    static String count_user;
 
     @FXML
     private ResourceBundle resources;
@@ -49,7 +48,7 @@ public class TableControl extends Control{
     private TableColumn<Quote, String> col_teacher;
 
     @FXML
-    private TableColumn<Quote, String> col_user;
+    private String col_user;
 
     @FXML
     private TableView<Quote> table;
@@ -63,6 +62,9 @@ public class TableControl extends Control{
     @FXML
     private TableColumn<Quote, String> col_author;
 
+    @FXML
+    private Label count;
+
 
     ObservableList<Quote> list;
     int index = -1;
@@ -72,17 +74,30 @@ public class TableControl extends Control{
 
 
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
         col_id.setCellValueFactory(new PropertyValueFactory<Quote, Integer>("id"));
         col_author.setCellValueFactory(new PropertyValueFactory<Quote, String>("user"));
         col_teacher.setCellValueFactory(new PropertyValueFactory<Quote, String>("teacher"));
         col_subject.setCellValueFactory(new PropertyValueFactory<Quote, String>("subject"));
         col_quote.setCellValueFactory(new PropertyValueFactory<Quote, String>("comment"));
-        col_date.setCellValueFactory(new PropertyValueFactory<Quote, String>("date"));
-
         DataBase bd = new DataBase();
+        col_user = bd.countUser();
+        col_date.setCellValueFactory(new PropertyValueFactory<Quote, String>("date"));
+        if (reg == 1){
+            count.setText(col_user);
+        }
+        else{
+            count.setText("0");
+        }
+
+
+        //c//ount.labelForProperty(new PropertyValueFactory<>(bd.countUser()));
+
+        //DataBase bd = new DataBase();
         list = bd.getDataBaseUsers();
         table.setItems(list);
+
+
 
         but_create.setOnAction(actionEvent -> {
             if (reg == 1) {
@@ -102,6 +117,12 @@ public class TableControl extends Control{
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                DataBase db = new DataBase();
+                try {
+                    String count = db.countUser();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
@@ -168,6 +189,7 @@ public class TableControl extends Control{
         but_back.setOnAction((actionEvent -> {
             but_back.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
+            //col_user = "0";
             loader.setLocation(getClass().getResource("/com/example/newappli/hello-view.fxml"));
             try {
                 loader.load();
@@ -182,5 +204,6 @@ public class TableControl extends Control{
             s.show();
         }));
     }
+
 
 }

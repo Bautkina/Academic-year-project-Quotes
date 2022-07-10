@@ -44,6 +44,11 @@
                   <Font name="Pristina" size="19.0" />
                </font>
             </Button>
+            <Label fx:id="count" layoutX="593.0" layoutY="14.0">
+               <font>
+                  <Font name="Pristina" size="32.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
         <Label layoutX="270.0" layoutY="14.0" text="Quotes">
             <font>

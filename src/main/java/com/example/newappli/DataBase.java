@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -121,11 +122,24 @@ public class DataBase {
         return result;
     }
 
+    public String countUser() throws SQLException {
+        String insert = "Select COUNT(user_comment) as count FROM Quote WHERE  user_comment = " +user_id+ "";
+        Connection connection = getConnection();
+        Statement st = connection.createStatement();
+        PreparedStatement pr = getConnection().prepareStatement(insert);
+        int count = 0;
+        ResultSet result  = st.executeQuery(insert);
+        while (result.next()){
+            count = result.getInt("count");
+            System.out.println(count);
+        }
+        return String.valueOf(count);
+
+    }
+
     public void update(Quote quote){
         String insert = "UPDATE Quote SET subject = ?, teacher = ?, comment = ? WHERE id = ? AND user_comment = '" +user_id+ "'";
         try {
-            //if ((quote.getUser().equals(user_id))){
-
             if(!quote.getComment().equals("") && !quote.getTeacher().equals("") && !quote.getSubject().equals("")) {
                 PreparedStatement pr = getConnection().prepareStatement(insert);
                 pr.setString(1, quote.getSubject());
